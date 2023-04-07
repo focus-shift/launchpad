@@ -1,4 +1,5 @@
 package de.focus_shift.launchpad.core;
+
 import java.util.Objects;
 
 public class AppDto {
@@ -27,11 +28,17 @@ public class AppDto {
 
   @Override
   public String toString() {
-    return "AppDto{" +
-            "url='" + url + '\'' +
-            ", name='" + name + '\'' +
-            ", icon='" + icon + '\'' +
-            '}';
+    return "AppDto{"
+        + "url='"
+        + url
+        + '\''
+        + ", name='"
+        + name
+        + '\''
+        + ", icon='"
+        + icon
+        + '\''
+        + '}';
   }
 
   @Override
@@ -39,7 +46,9 @@ public class AppDto {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     AppDto appDto = (AppDto) o;
-    return Objects.equals(url, appDto.url) && Objects.equals(name, appDto.name) && Objects.equals(icon, appDto.icon);
+    return Objects.equals(url, appDto.url)
+        && Objects.equals(name, appDto.name)
+        && Objects.equals(icon, appDto.icon);
   }
 
   @Override

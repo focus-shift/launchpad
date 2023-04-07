@@ -2,7 +2,6 @@ package de.focus_shift.launchpad.tenancy;
 
 import de.focus_shift.launchpad.api.LaunchpadAppUrlCustomizer;
 import java.net.URL;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

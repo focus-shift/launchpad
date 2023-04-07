@@ -40,12 +40,18 @@ public final class App {
 
   @Override
   public String toString() {
-    return "App{" +
-            "url=" + url +
-            ", appName=" + appName +
-            ", icon='" + icon + '\'' +
-            ", authority='" + authority + '\'' +
-            '}';
+    return "App{"
+        + "url="
+        + url
+        + ", appName="
+        + appName
+        + ", icon='"
+        + icon
+        + '\''
+        + ", authority='"
+        + authority
+        + '\''
+        + '}';
   }
 
   @Override
@@ -53,7 +59,10 @@ public final class App {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     App app = (App) o;
-    return Objects.equals(url, app.url) && Objects.equals(appName, app.appName) && Objects.equals(icon, app.icon) && Objects.equals(authority, app.authority);
+    return Objects.equals(url, app.url)
+        && Objects.equals(appName, app.appName)
+        && Objects.equals(icon, app.icon)
+        && Objects.equals(authority, app.authority);
   }
 
   @Override

@@ -1,4 +1,5 @@
 package de.focus_shift.launchpad.core;
+
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
@@ -19,10 +20,7 @@ public final class AppName {
 
   @Override
   public String toString() {
-    return "AppName{" +
-            "defaultName='" + defaultName + '\'' +
-            ", names=" + names +
-            '}';
+    return "AppName{" + "defaultName='" + defaultName + '\'' + ", names=" + names + '}';
   }
 
   @Override

@@ -17,9 +17,7 @@ class LaunchpadDto {
 
   @Override
   public String toString() {
-    return "LaunchpadDto{" +
-            "apps=" + apps +
-            '}';
+    return "LaunchpadDto{" + "apps=" + apps + '}';
   }
 
   @Override

@@ -1,4 +1,5 @@
 package de.focus_shift.launchpad.core;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -16,9 +17,7 @@ public final class Launchpad {
 
   @Override
   public String toString() {
-    return "Launchpad{" +
-            "apps=" + apps +
-            '}';
+    return "Launchpad{" + "apps=" + apps + '}';
   }
 
   @Override

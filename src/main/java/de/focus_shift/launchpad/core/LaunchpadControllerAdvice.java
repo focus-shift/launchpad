@@ -26,7 +26,10 @@ public class LaunchpadControllerAdvice {
 
     final List<AppDto> appDtos =
         launchpad.getApps().stream()
-                .map(app -> new AppDto(app.getUrl().toString(), app.getAppName().get(locale), app.getIcon()))
+            .map(
+                app ->
+                    new AppDto(
+                        app.getUrl().toString(), app.getAppName().get(locale), app.getIcon()))
             .collect(toList());
 
     if (!appDtos.isEmpty()) {
