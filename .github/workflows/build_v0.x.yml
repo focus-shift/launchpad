@@ -5,9 +5,7 @@ on:
     - cron: "15 0 * * *"
   push:
     branches:
-      - main
-  pull_request:
-  workflow_dispatch:
+      - v0.x
 
 jobs:
   build:
@@ -23,7 +21,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: 17
+          java-version: 11
           cache: 'maven'
       - name: Build with Maven
         run: >

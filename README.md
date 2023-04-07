@@ -17,6 +17,9 @@ Include Launchpad to your project:
 </dependency>
 ```
 
+Choose the right version of Launchpad for your Spring Boot version:
+* 0.x is using spring boot 2.x as a parent
+* 1.x is using spring boot 3.x as a parent
 
 ## License
 
