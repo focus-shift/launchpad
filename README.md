@@ -2,7 +2,7 @@
 
 ## Requirements
 
-This project requires Java 11 compiler.
+This project requires Java 21 compiler.
 
 
 ## Usage
