@@ -53,8 +53,8 @@
 
     <properties>
         <revision>1.2.0-SNAPSHOT</revision>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -172,12 +172,12 @@
                 <version>2.44.5</version>
                 <configuration>
                     <java>
-                        <googleJavaFormat />
-                        <importOrder />
-                        <removeUnusedImports />
-                        <formatAnnotations />
+                        <googleJavaFormat/>
+                        <importOrder/>
+                        <removeUnusedImports/>
+                        <formatAnnotations/>
                     </java>
-                    <pom />
+                    <pom/>
                 </configuration>
                 <executions>
                     <execution>
