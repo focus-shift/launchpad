@@ -40,9 +40,7 @@ class LaunchpadConfigProperties {
     this.apps = apps;
   }
 
-  /**
-   * Represents a single app registered in the Launchpad.
-   */
+  /** Represents a single app registered in the Launchpad. */
   @Validated
   static class App {
 
