@@ -1,7 +1,8 @@
 package de.focus_shift.launchpad.core;
 
 import de.focus_shift.launchpad.api.LaunchpadAppUrlCustomizer;
-import java.net.URL;
+
+import java.net.URI;
 import java.util.List;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
@@ -41,7 +42,7 @@ public class LaunchpadAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     LaunchpadAppUrlCustomizer appUrlCustomizer() {
-      return URL::new;
+      return url -> URI.create(url).toURL();
     }
   }
 
