@@ -42,7 +42,7 @@ class LaunchpadConfigProperties {
 
   /** Represents a single app registered in the Launchpad. */
   @Validated
-  static class App {
+  public static class App {
 
     /** Absolute URL of the app (must be HTTP or HTTPS). */
     @NotNull private String url;
