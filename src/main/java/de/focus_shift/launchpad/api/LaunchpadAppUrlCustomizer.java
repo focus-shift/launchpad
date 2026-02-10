@@ -5,7 +5,7 @@ import java.net.URL;
 
 /**
  * Callback interface that can be implemented to customize the URL of an {@linkplain
- * LaunchpadConfigProperties.App}.
+ * de.focus_shift.launchpad.core.LaunchpadConfigProperties.App}.
  *
  * <p>Example Configuration:
  *
@@ -23,7 +23,7 @@ import java.net.URL;
  *
  * <pre><code>
  * LaunchpadAppUrlCustomizer launchpadAppUrlCustomizer() {
- *     return url -> new URL(url.replace("{tenantId}", "awesome-tenant-id"));
+ *     return url -> URI.create(url.replace("{tenantId}", "awesome-tenant-id")).toURL();
  * }
  * </code></pre>
  */

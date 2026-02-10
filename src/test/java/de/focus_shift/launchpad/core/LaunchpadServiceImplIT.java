@@ -3,7 +3,7 @@ package de.focus_shift.launchpad.core;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import de.focus_shift.launchpad.api.LaunchpadAppUrlCustomizer;
-import java.net.URL;
+import java.net.URI;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -36,12 +36,12 @@ class LaunchpadServiceImplIT {
     assertThat(launchpad.getApps())
         .containsExactly(
             new App(
-                new URL("https://first.app.example.org"),
+                URI.create("https://first.app.example.org").toURL(),
                 new AppName(
                     "Anwendung 1", Map.of(Locale.GERMAN, "Anwendung 1", Locale.ENGLISH, "App 1")),
                 "icon-first"),
             new App(
-                new URL("https://second.app.example.org"),
+                URI.create("https://second.app.example.org").toURL(),
                 new AppName(
                     "Anwendung 2", Map.of(Locale.GERMAN, "Anwendung 2", Locale.ENGLISH, "App 2")),
                 "icon-second"));
@@ -51,7 +51,7 @@ class LaunchpadServiceImplIT {
   static class TestConfig {
     @Bean
     LaunchpadAppUrlCustomizer appUrlCustomizer() {
-      return URL::new;
+      return url -> URI.create(url).toURL();
     }
   }
 }

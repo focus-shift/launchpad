@@ -1,7 +1,7 @@
 package de.focus_shift.launchpad.tenancy;
 
 import de.focus_shift.launchpad.api.LaunchpadAppUrlCustomizer;
-import java.net.URL;
+import java.net.URI;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +14,7 @@ public class LaunchpadTenantConfiguration {
 
   @Bean
   LaunchpadAppUrlCustomizer appUrlCustomizer(TenantSupplier tenantSupplier) {
-    return url -> new URL(url.replace("{tenantId}", tenantSupplier.get()));
+    return url -> URI.create(url.replace("{tenantId}", tenantSupplier.get())).toURL();
   }
 
   @Bean
