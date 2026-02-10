@@ -2,7 +2,6 @@ package de.focus_shift.launchpad.core;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import java.net.URI;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
