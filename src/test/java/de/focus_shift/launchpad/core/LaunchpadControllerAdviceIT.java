@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import de.focus_shift.launchpad.api.HasLaunchpad;
 import de.focus_shift.launchpad.api.LaunchpadAppUrlCustomizer;
-import java.net.URL;
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
@@ -49,9 +49,12 @@ class LaunchpadControllerAdviceIT {
         .thenReturn(
             new Launchpad(
                 List.of(
-                    new App(new URL("https://example.org"), new AppName("App 1", Map.of()), "icon"),
                     new App(
-                        new URL("https://example-2.org"),
+                        URI.create("https://example.org").toURL(),
+                        new AppName("App 1", Map.of()),
+                        "icon"),
+                    new App(
+                        URI.create("https://example-2.org").toURL(),
                         new AppName("App 2", Map.of()),
                         "icon-2"))));
 
@@ -81,7 +84,7 @@ class LaunchpadControllerAdviceIT {
 
     @Bean
     LaunchpadAppUrlCustomizer appUrlCustomizer() {
-      return URL::new;
+      return url -> URI.create(url).toURL();
     }
 
     @Controller
