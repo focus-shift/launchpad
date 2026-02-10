@@ -32,11 +32,11 @@ class LaunchpadConfigProperties {
     this.nameDefaultLocale = nameDefaultLocale;
   }
 
-  List<App> getApps() {
+  public List<App> getApps() {
     return apps;
   }
 
-  void setApps(List<App> apps) {
+  public void setApps(List<App> apps) {
     this.apps = apps;
   }
 
