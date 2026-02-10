@@ -1,7 +1,6 @@
 package de.focus_shift.launchpad.core;
 
 import de.focus_shift.launchpad.api.LaunchpadAppUrlCustomizer;
-
 import java.net.URI;
 import java.util.List;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
