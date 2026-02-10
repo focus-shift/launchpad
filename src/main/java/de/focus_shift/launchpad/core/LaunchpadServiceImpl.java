@@ -1,7 +1,6 @@
 package de.focus_shift.launchpad.core;
 
 import static java.lang.invoke.MethodHandles.lookup;
-import static java.util.stream.Collectors.toList;
 
 import de.focus_shift.launchpad.api.LaunchpadAppUrlCustomizer;
 import java.net.MalformedURLException;
@@ -37,7 +36,7 @@ class LaunchpadServiceImpl implements LaunchpadService {
         .filter(Optional::isPresent)
         .flatMap(Optional::stream)
         .filter(app -> isAllowed(app, authentication))
-        .collect(toList());
+        .toList();
   }
 
   private boolean isAllowed(App app, Authentication authentication) {

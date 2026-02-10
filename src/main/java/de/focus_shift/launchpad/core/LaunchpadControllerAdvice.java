@@ -1,7 +1,5 @@
 package de.focus_shift.launchpad.core;
 
-import static java.util.stream.Collectors.toList;
-
 import de.focus_shift.launchpad.api.HasLaunchpad;
 import java.util.List;
 import java.util.Locale;
@@ -30,7 +28,7 @@ public class LaunchpadControllerAdvice {
                 app ->
                     new AppDto(
                         app.getUrl().toString(), app.getAppName().get(locale), app.getIcon()))
-            .collect(toList());
+            .toList();
 
     if (!appDtos.isEmpty()) {
       model.addAttribute("launchpad", new LaunchpadDto(appDtos));
