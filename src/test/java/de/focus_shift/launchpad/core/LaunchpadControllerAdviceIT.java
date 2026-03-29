@@ -26,7 +26,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@SpringBootTest(classes = {LaunchpadControllerAdvice.class})
+@SpringBootTest(classes = {LaunchpadControllerAdvice.class, LaunchpadModelAttributeAppender.class})
 @ContextConfiguration(classes = {LaunchpadControllerAdviceIT.TestConfig.class})
 @AutoConfigureMockMvc
 class LaunchpadControllerAdviceIT {
