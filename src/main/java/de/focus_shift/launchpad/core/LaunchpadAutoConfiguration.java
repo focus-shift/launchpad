@@ -27,8 +27,15 @@ public class LaunchpadAutoConfiguration {
   static class LaunchpadConfig {
 
     @Bean
-    LaunchpadControllerAdvice launchpadControllerAdvice(LaunchpadService launchpadService) {
-      return new LaunchpadControllerAdvice(launchpadService);
+    LaunchpadModelAttributeAppender launchpadModelAttributeAppender(
+        LaunchpadService launchpadService) {
+      return new LaunchpadModelAttributeAppender(launchpadService);
+    }
+
+    @Bean
+    LaunchpadControllerAdvice launchpadControllerAdvice(
+        LaunchpadModelAttributeAppender launchpadModelAttributeAppender) {
+      return new LaunchpadControllerAdvice(launchpadModelAttributeAppender);
     }
 
     @Bean
@@ -48,7 +55,7 @@ public class LaunchpadAutoConfiguration {
   /** Checks if 'launchpad.apps' are configured appropriate. */
   // copied and adjusted from
   // org.springframework.boot.autoconfigure.condition.OnPropertyListCondition
-  static class LaunchpadAppsCondition extends SpringBootCondition {
+  public static class LaunchpadAppsCondition extends SpringBootCondition {
     private static final Bindable<List<LaunchpadConfigProperties.App>> APP_LIST =
         Bindable.listOf(LaunchpadConfigProperties.App.class);
     private static final String PROPERTY_NAME = "launchpad.apps";
