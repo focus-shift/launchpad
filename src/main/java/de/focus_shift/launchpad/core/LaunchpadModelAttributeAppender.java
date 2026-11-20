@@ -19,10 +19,8 @@ public class LaunchpadModelAttributeAppender {
 
     final List<AppDto> appDtos =
         launchpad.getApps().stream()
-            .map(
-                app ->
-                    new AppDto(
-                        app.getUrl().toString(), app.getAppName().get(locale), app.getIcon()))
+            .map(app ->
+                new AppDto(app.getUrl().toString(), app.getAppName().get(locale), app.getIcon()))
             .toList();
 
     if (!appDtos.isEmpty()) {
