@@ -2,7 +2,12 @@
 
 ## Requirements
 
-This project requires Java 25.
+| Launchpad | Spring Boot | Java |
+|-----------|-------------|------|
+| 4.x       | 4.x         | 25+  |
+| 3.x       | 4.x         | 17+  |
+| 1.x       | 3.x         | 17+  |
+| 0.x       | 2.x         | 11+  |
 
 
 ## Usage
@@ -15,10 +20,8 @@ This project requires Java 25.
     <version>...</version>
   </dependency>
   ```
-  - Choose the right version of Launchpad for your Spring Boot version:
-    - 3.x is using spring boot 4.x as a parent
-    - 1.x is using spring boot 3.x as a parent
-    - 0.x is using spring boot 2.x as a parent
+  Choose the version matching your Spring Boot and Java version, see [Requirements](#requirements).
+  Launchpad is a Spring Boot auto-configuration, no `@Import` or component scan is needed.
 - Configure launchpad apps in your `application.yml`
   ```yaml
   launchpad:
@@ -37,8 +40,49 @@ This project requires Java 25.
       url: https://link-2
   ```
 - Assign `HasLaunchpad` to all Controllers you want the launchpad to be available
+- Render the model attribute `launchpad` in your view. It has a list `apps`, each with `url`, `name`
+  (in the request's language) and `icon`. The attribute is missing when the user may see no app.
+  ```html
+  <nav th:if="${launchpad}">
+    <a th:each="app : ${launchpad.apps}" th:href="${app.url}">
+      <img th:src="${app.icon}" alt=""> <span th:text="${app.name}"></span>
+    </a>
+  </nav>
+  ```
+
+App names are looked up by the request's locale, then by its language (`en-US` finds `en`), then
+`name-default-locale` is used.
 
 ### Advanced
+
+#### Restrict Apps to an Authority
+
+An app with an `authority` is only shown to users having this authority. Users who are not logged in
+only see apps without an `authority`.
+
+```yaml
+launchpad:
+  apps[0]:
+    authority: ROLE_ADMIN
+```
+
+#### Tenant-specific URLs
+
+With tenancy enabled, `{tenantId}` in an app URL is replaced by the id of the current tenant.
+
+```yaml
+launchpad:
+  tenant:
+    enabled: true
+    default-supplier:
+      id: my-tenant   # defaults to "default"
+  apps[0]:
+    url: https://{tenantId}.example.org
+```
+
+To determine the tenant yourself, set `launchpad.tenant.default-supplier.enabled: false` and provide a
+`TenantSupplier` bean. To build app URLs completely on your own, provide a `LaunchpadAppUrlCustomizer`
+bean instead. Apps whose URL cannot be built are left out and logged as a warning.
 
 #### Launchpad on Error Pages
 
@@ -68,6 +112,15 @@ class ErrorControllerAdvice {
 You can inject `HttpServletRequest` to check the requested URL with
 `request.getAttribute("jakarta.servlet.error.request_uri")` and only call the
 `LaunchpadModelAttributeAppender` if the requested URL matches your condition.
+
+
+## Upgrading from 3.x to 4.x
+
+- Java 25 is required.
+- Launchpad registers itself as Spring Boot auto-configuration. Remove any `@Import` or
+  `@ComponentScan` of `LaunchpadAutoConfiguration` or `LaunchpadTenantConfiguration`.
+- `AppDto` is a record: Java code calling `getUrl()`, `getName()` or `getIcon()` has to use `url()`,
+  `name()` and `icon()`. Templates using `app.url` etc. keep working.
 
 
 ## License
