@@ -64,8 +64,11 @@ class LaunchpadServiceImpl implements LaunchpadService {
   private Optional<URL> getAppUrl(LaunchpadConfigProperties.App app) {
     try {
       return Optional.of(appUrlCustomizer.customize(app.getUrl()));
-    } catch (MalformedURLException e) {
-      LOG.info("ignoring launchpad app: could not build URL for app={}", app, e);
+    } catch (MalformedURLException | IllegalArgumentException e) {
+      LOG.warn(
+          "ignoring launchpad app: could not build URL from url={}: {}",
+          app.getUrl(),
+          e.getMessage());
       return Optional.empty();
     }
   }
