@@ -17,13 +17,13 @@ import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 
-@SpringBootTest(classes = {LaunchpadServiceImpl.class})
-@ContextConfiguration(classes = {LaunchpadServiceImplIT.TestConfig.class})
+@SpringBootTest(classes = {LaunchpadService.class})
+@ContextConfiguration(classes = {LaunchpadServiceIT.TestConfig.class})
 @EnableConfigurationProperties(LaunchpadConfigProperties.class)
 @TestPropertySource("classpath:launchpad-example.properties")
-class LaunchpadServiceImplIT {
+class LaunchpadServiceIT {
 
-  @Autowired private LaunchpadServiceImpl sut;
+  @Autowired private LaunchpadService sut;
 
   @Test
   void ensureLaunchpad() throws Exception {
@@ -33,18 +33,20 @@ class LaunchpadServiceImplIT {
 
     final Launchpad launchpad = sut.getLaunchpad(authentication);
 
-    assertThat(launchpad.getApps())
+    assertThat(launchpad.apps())
         .containsExactly(
             new App(
                 URI.create("https://first.app.example.org").toURL(),
                 new AppName(
                     "Anwendung 1", Map.of(Locale.GERMAN, "Anwendung 1", Locale.ENGLISH, "App 1")),
-                "icon-first"),
+                "icon-first",
+                null),
             new App(
                 URI.create("https://second.app.example.org").toURL(),
                 new AppName(
                     "Anwendung 2", Map.of(Locale.GERMAN, "Anwendung 2", Locale.ENGLISH, "App 2")),
-                "icon-second"));
+                "icon-second",
+                null));
   }
 
   @TestConfiguration

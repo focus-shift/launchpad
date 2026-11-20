@@ -42,7 +42,7 @@ public class LaunchpadAutoConfiguration {
     LaunchpadService launchpadService(
         LaunchpadConfigProperties launchpadConfigProperties,
         LaunchpadAppUrlCustomizer appUrlCustomizer) {
-      return new LaunchpadServiceImpl(launchpadConfigProperties, appUrlCustomizer);
+      return new LaunchpadService(launchpadConfigProperties, appUrlCustomizer);
     }
 
     @Bean

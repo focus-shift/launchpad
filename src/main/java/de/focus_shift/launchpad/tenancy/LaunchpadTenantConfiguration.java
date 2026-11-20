@@ -27,6 +27,6 @@ public class LaunchpadTenantConfiguration {
       matchIfMissing = true)
   TenantSupplier tenantSupplier(LaunchpadTenantConfigProperties launchpadTenantConfigProperties) {
     String tenantId = launchpadTenantConfigProperties.getDefaultSupplier().getId();
-    return new DefaultTenantSupplier(tenantId);
+    return () -> tenantId;
   }
 }
