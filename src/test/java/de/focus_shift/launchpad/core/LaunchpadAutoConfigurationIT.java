@@ -33,6 +33,16 @@ class LaunchpadAutoConfigurationIT {
         .run(context -> assertThat(firstAppUrl(context)).isEqualTo("https://example.org"));
   }
 
+  @Test
+  void usesTenantIdWhenTenancyIsEnabled() {
+    runner
+        .withPropertyValues(
+            "launchpad.apps[0].url=https://{tenantId}.example.org",
+            "launchpad.tenant.enabled=true",
+            "launchpad.tenant.default-supplier.id=acme")
+        .run(context -> assertThat(firstAppUrl(context)).isEqualTo("https://acme.example.org"));
+  }
+
   private static String firstAppUrl(ApplicationContext context) {
     final ExtendedModelMap model = new ExtendedModelMap();
     context

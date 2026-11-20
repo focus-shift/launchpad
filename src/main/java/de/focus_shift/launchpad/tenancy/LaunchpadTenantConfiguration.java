@@ -1,13 +1,15 @@
 package de.focus_shift.launchpad.tenancy;
 
 import de.focus_shift.launchpad.api.LaunchpadAppUrlCustomizer;
+import de.focus_shift.launchpad.core.LaunchpadAutoConfiguration;
 import java.net.URI;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
-@AutoConfiguration
+// runs first so its customizer replaces the default one
+@AutoConfiguration(before = LaunchpadAutoConfiguration.class)
 @EnableConfigurationProperties(LaunchpadTenantConfigProperties.class)
 @ConditionalOnProperty(prefix = "launchpad.tenant", name = "enabled", havingValue = "true")
 public class LaunchpadTenantConfiguration {
