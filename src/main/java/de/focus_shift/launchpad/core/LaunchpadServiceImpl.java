@@ -40,6 +40,10 @@ class LaunchpadServiceImpl implements LaunchpadService {
   }
 
   private boolean isAllowed(App app, Authentication authentication) {
+    // null when nobody is logged in
+    if (authentication == null) {
+      return app.getAuthority().isEmpty();
+    }
     return app.getAuthority()
         .map(authority ->
             authentication.getAuthorities().stream()
