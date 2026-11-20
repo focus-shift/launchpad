@@ -15,7 +15,9 @@ public final class AppName {
   }
 
   public String get(Locale locale) {
-    return names.getOrDefault(locale, defaultName);
+    // browsers send e.g. en-US while names are configured as en
+    return names.getOrDefault(
+        locale, names.getOrDefault(Locale.forLanguageTag(locale.getLanguage()), defaultName));
   }
 
   @Override
