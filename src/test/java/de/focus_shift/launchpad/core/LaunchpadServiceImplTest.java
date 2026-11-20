@@ -27,6 +27,11 @@ class LaunchpadServiceImplTest {
         .containsExactly("https://public.example.org");
   }
 
+  @Test
+  void hidesAppsWithAuthorityFromAnonymousUsers() {
+    assertThat(appUrls(sut, null)).containsExactly("https://public.example.org");
+  }
+
   private static List<String> appUrls(LaunchpadServiceImpl service, Authentication authentication) {
     return service.getLaunchpad(authentication).getApps().stream()
         .map(app -> app.getUrl().toString())
