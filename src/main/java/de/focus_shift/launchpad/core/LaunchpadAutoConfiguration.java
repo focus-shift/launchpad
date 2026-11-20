@@ -3,6 +3,7 @@ package de.focus_shift.launchpad.core;
 import de.focus_shift.launchpad.api.LaunchpadAppUrlCustomizer;
 import java.net.URI;
 import java.util.List;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -15,10 +16,9 @@ import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Conditional;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
-@Configuration
+@AutoConfiguration
 @EnableConfigurationProperties(LaunchpadConfigProperties.class)
 @ConditionalOnProperty(prefix = "launchpad", name = "name-default-locale")
 public class LaunchpadAutoConfiguration {
