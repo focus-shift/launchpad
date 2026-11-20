@@ -10,7 +10,8 @@ class LaunchpadTenantConfigProperties {
 
   private boolean enabled = false;
 
-  @NotNull private DefaultTenantSupplierConfigProperties defaultSupplier;
+  @NotNull private DefaultTenantSupplierConfigProperties defaultSupplier =
+      new DefaultTenantSupplierConfigProperties();
 
   public boolean isEnabled() {
     return enabled;
