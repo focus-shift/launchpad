@@ -16,6 +16,15 @@ class LaunchpadServiceImplTest {
       service(app("https://public.example.org", null), app("https://admin.example.org", "ADMIN"));
 
   @Test
+  void ignoresAppsWhoseUrlCannotBeBuilt() {
+    final LaunchpadServiceImpl service =
+        service(app("no-scheme.example.org", null), app("https://public.example.org", null));
+
+    assertThat(appUrls(service, new TestingAuthenticationToken("user", "", "USER")))
+        .containsExactly("https://public.example.org");
+  }
+
+  @Test
   void showsAppsWithAuthorityToUsersWithThatAuthority() {
     assertThat(appUrls(sut, new TestingAuthenticationToken("admin", "", "ADMIN")))
         .containsExactly("https://public.example.org", "https://admin.example.org");
