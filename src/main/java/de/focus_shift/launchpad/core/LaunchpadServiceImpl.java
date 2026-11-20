@@ -41,22 +41,20 @@ class LaunchpadServiceImpl implements LaunchpadService {
 
   private boolean isAllowed(App app, Authentication authentication) {
     return app.getAuthority()
-        .map(
-            authority ->
-                authentication.getAuthorities().stream()
-                    .map(GrantedAuthority::getAuthority)
-                    .anyMatch(authority::equals))
+        .map(authority ->
+            authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .anyMatch(authority::equals))
         .orElse(true);
   }
 
   private Optional<App> toApp(LaunchpadConfigProperties.App app) {
     return getAppUrl(app)
-        .map(
-            url -> {
-              final String defaultName = app.getName().get(appsProperties.getNameDefaultLocale());
-              return new App(
-                  url, new AppName(defaultName, app.getName()), app.getIcon(), app.getAuthority());
-            });
+        .map(url -> {
+          final String defaultName = app.getName().get(appsProperties.getNameDefaultLocale());
+          return new App(
+              url, new AppName(defaultName, app.getName()), app.getIcon(), app.getAuthority());
+        });
   }
 
   private Optional<URL> getAppUrl(LaunchpadConfigProperties.App app) {
