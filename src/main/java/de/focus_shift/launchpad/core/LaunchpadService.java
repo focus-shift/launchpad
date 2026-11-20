@@ -1,8 +1,71 @@
 package de.focus_shift.launchpad.core;
 
+import static java.lang.invoke.MethodHandles.lookup;
+
+import de.focus_shift.launchpad.api.LaunchpadAppUrlCustomizer;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 
-interface LaunchpadService {
+class LaunchpadService {
 
-  Launchpad getLaunchpad(Authentication authentication);
+  private static final Logger LOG = LoggerFactory.getLogger(lookup().lookupClass());
+
+  private final LaunchpadConfigProperties appsProperties;
+  private final LaunchpadAppUrlCustomizer appUrlCustomizer;
+
+  LaunchpadService(
+      LaunchpadConfigProperties appsProperties, LaunchpadAppUrlCustomizer appUrlCustomizer) {
+    this.appsProperties = appsProperties;
+    this.appUrlCustomizer = appUrlCustomizer;
+  }
+
+  Launchpad getLaunchpad(Authentication authentication) {
+    return new Launchpad(getApplications(authentication));
+  }
+
+  private List<App> getApplications(Authentication authentication) {
+    return appsProperties.getApps().stream()
+        .map(this::toApp)
+        .flatMap(Optional::stream)
+        .filter(app -> isAllowed(app, authentication))
+        .toList();
+  }
+
+  private boolean isAllowed(App app, Authentication authentication) {
+    if (app.authority() == null) {
+      return true;
+    }
+    // null when nobody is logged in
+    return authentication != null
+        && authentication.getAuthorities().stream()
+            .map(GrantedAuthority::getAuthority)
+            .anyMatch(app.authority()::equals);
+  }
+
+  private Optional<App> toApp(LaunchpadConfigProperties.App app) {
+    return getAppUrl(app)
+        .map(url -> {
+          final String defaultName = app.getName().get(appsProperties.getNameDefaultLocale());
+          return new App(
+              url, new AppName(defaultName, app.getName()), app.getIcon(), app.getAuthority());
+        });
+  }
+
+  private Optional<URL> getAppUrl(LaunchpadConfigProperties.App app) {
+    try {
+      return Optional.of(appUrlCustomizer.customize(app.getUrl()));
+    } catch (MalformedURLException | IllegalArgumentException e) {
+      LOG.warn(
+          "ignoring launchpad app: could not build URL from url={}: {}",
+          app.getUrl(),
+          e.getMessage());
+      return Optional.empty();
+    }
+  }
 }

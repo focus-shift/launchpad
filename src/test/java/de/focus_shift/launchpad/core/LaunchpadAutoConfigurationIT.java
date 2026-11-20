@@ -48,6 +48,6 @@ class LaunchpadAutoConfigurationIT {
     context
         .getBean(LaunchpadModelAttributeAppender.class)
         .addModelAttribute(model, Locale.GERMAN, new TestingAuthenticationToken("user", ""));
-    return ((LaunchpadDto) model.get("launchpad")).apps().get(0).getUrl();
+    return ((LaunchpadDto) model.get("launchpad")).apps().get(0).url();
   }
 }

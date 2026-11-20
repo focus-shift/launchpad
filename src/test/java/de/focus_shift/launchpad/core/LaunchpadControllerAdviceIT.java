@@ -37,7 +37,7 @@ class LaunchpadControllerAdviceIT {
 
   @Autowired private TestConfig.OtherController otherController;
 
-  @MockitoBean private LaunchpadServiceImpl launchpadService;
+  @MockitoBean private LaunchpadService launchpadService;
 
   @Autowired private MockMvc mockMvc;
 
@@ -52,11 +52,13 @@ class LaunchpadControllerAdviceIT {
                     new App(
                         URI.create("https://example.org").toURL(),
                         new AppName("App 1", Map.of()),
-                        "icon"),
+                        "icon",
+                        null),
                     new App(
                         URI.create("https://example-2.org").toURL(),
                         new AppName("App 2", Map.of()),
-                        "icon-2"))));
+                        "icon-2",
+                        null))));
 
     mockMvc
         .perform(get("/launchpad"))

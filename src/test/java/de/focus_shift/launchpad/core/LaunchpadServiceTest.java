@@ -10,14 +10,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
-class LaunchpadServiceImplTest {
+class LaunchpadServiceTest {
 
-  private final LaunchpadServiceImpl sut =
+  private final LaunchpadService sut =
       service(app("https://public.example.org", null), app("https://admin.example.org", "ADMIN"));
 
   @Test
   void ignoresAppsWhoseUrlCannotBeBuilt() {
-    final LaunchpadServiceImpl service =
+    final LaunchpadService service =
         service(app("no-scheme.example.org", null), app("https://public.example.org", null));
 
     assertThat(appUrls(service, new TestingAuthenticationToken("user", "", "USER")))
@@ -41,17 +41,17 @@ class LaunchpadServiceImplTest {
     assertThat(appUrls(sut, null)).containsExactly("https://public.example.org");
   }
 
-  private static List<String> appUrls(LaunchpadServiceImpl service, Authentication authentication) {
-    return service.getLaunchpad(authentication).getApps().stream()
-        .map(app -> app.getUrl().toString())
+  private static List<String> appUrls(LaunchpadService service, Authentication authentication) {
+    return service.getLaunchpad(authentication).apps().stream()
+        .map(app -> app.url().toString())
         .toList();
   }
 
-  private static LaunchpadServiceImpl service(LaunchpadConfigProperties.App... apps) {
+  private static LaunchpadService service(LaunchpadConfigProperties.App... apps) {
     final LaunchpadConfigProperties properties = new LaunchpadConfigProperties();
     properties.setNameDefaultLocale(Locale.GERMAN);
     properties.setApps(List.of(apps));
-    return new LaunchpadServiceImpl(properties, url -> URI.create(url).toURL());
+    return new LaunchpadService(properties, url -> URI.create(url).toURL());
   }
 
   private static LaunchpadConfigProperties.App app(String url, String authority) {
